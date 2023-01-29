@@ -14,21 +14,13 @@ onready var check_user_nfts_button = $UI/CheckUserNFTsButton
 onready var nft_list_container = $UI/NftList/HBoxContainer
 onready var token_address_input = $UI/TokenAddress
 
-var m_ApiKey : String = ""
-
-var user_config = ConfigFile.new()
-
-# TODO: these should NOT be saved, they should be deleted after you're done using them.
-# You can always query the API key or account object again if needed in the future.
+# Note: these should NOT be saved. They should be deleted after you're done
+# using them. You can always query the API key or account object again if needed
+# in the future.
 var api_key : String = ""
 var account_object : Dictionary = {}
 
 func _ready():
-	# First, load the saved user data
-	var err = user_config.load(LoopringGlobals.USER_DATA_SAVE_PATH)
-	if err != OK:
-		printerr("Error when attempting to load saved user data.")
-	
 	unlock_button.show()
 	check_user_nfts_button.hide()
 	
@@ -53,7 +45,6 @@ func get_account() -> void:
 	account_object = json.result
 	print("Account object:\n", account_object)
 
-# NOTE: Make sure to DELETE the API key and private key after 
 func get_api_key(_xapisig: String):
 	# Queries user's API Key
 	var json = Loopring.get_api_key(str(account_object.get("accountId")), _xapisig)
@@ -90,10 +81,9 @@ func get_tokens() -> void:
 	
 	var response_object = json.result
 	if response_object.has("data"):
-		# Field "nftId" is the id of the NFT
-		# TODO temporary, remove later or store in some global list variable?
-		# Or this may just be something to query for every time we need to check
-		# what NFTs the user has.
+		# Note: In this example scene, we allow the user to query for different
+		# smart contracts, but in a game or app that deals with specific collections
+		# only, caching the NFT data here is better.
 		
 		# First clear the list of label nodes
 		for child in nft_list_container.get_children():
@@ -178,8 +168,8 @@ func sign_message_function() -> void:
 		printerr("Failed to fetch account info.")
 		keyseed_msg += "0"
 	
-	# Checks which wallet the user has, as WalletConnect has a different signing method,
-	# and then signs the keySeed message.
+	# Checks which wallet the user has, as WalletConnect has a different signing
+	# method, and then signs the keySeed message.
 	if LoopringGlobals.current_wallet_type == LoopringGlobals.WalletType.METAMASK:
 		response = wallet_connector.sign_web3_message("m", LoopringGlobals.wallet, keyseed_msg)
 	elif LoopringGlobals.current_wallet_type == LoopringGlobals.WalletType.WALLETCONNECT:

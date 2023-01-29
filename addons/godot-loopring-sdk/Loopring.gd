@@ -108,7 +108,6 @@ func hex_to_byte_array(hex:String) -> PoolByteArray:
 	return result
 
 # Clears the user's wallet and related data from the saved config file.
-# Returns true if successful.
 func logout() -> void:
 	LoopringGlobals.clear_wallet()
 	var save_path = LoopringGlobals.USER_DATA_SAVE_PATH
