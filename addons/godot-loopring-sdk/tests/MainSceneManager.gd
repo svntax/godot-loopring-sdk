@@ -93,7 +93,7 @@ func get_tokens() -> void:
 			var nft_card = NftInfoCard.instance()
 			nft_list_container.add_child(nft_card)
 			
-			# Fetch NFT metadata
+			# Read the NFT metadata
 			var metadata = token.get("metadata")
 			
 			var nft_name = metadata.get("base").get("name")
