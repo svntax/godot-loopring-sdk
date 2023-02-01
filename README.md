@@ -60,7 +60,7 @@ First, we get the user's account data with `Loopring.get_account_object()`. Then
 
 If the signing process fails in WalletConnector, a `failed_to_sign` signal will be emitted.
 
-Once you have an API key, you can query for the user's NFTs with `Loopring.get_token_balance()`, which requires a user wallet, API key, and the smart contract address for the NFTs to check. This query gives you a response that contains an array of objects with an `nftId` field, which you can then pass into `Loopring.get_ipfs_hash_from_nft_id()` to convert into an IPFS hash for reading the NFT's metadata with `Loopring.get_metadata()`. See the function `get_tokens()` in `MainSceneManager.gd` for an example of this entire process.
+Once you have an API key, you can query for the user's NFTs with `Loopring.get_token_balance()`, which requires a user wallet, API key, the smart contract address for the NFTs to check, and a boolean for if metadata should be fetched. This query gives you a response that contains an array of objects with several fields. The `metadata` field will appear if the `_get_metadata` parameter is true. See the function `get_tokens()` in `MainSceneManager.gd` for an example of this entire process and how to read the metadata.
 
 ## Notes
 - Once Godot 4.0 is out, the SDK will need to be updated due to changes to coroutines and the replacement of `yield` with `await`. In the meantime, any calls to methods that wait for responses require checking if the return value is a GDScriptFunctionState, and if so, yield until completed.
