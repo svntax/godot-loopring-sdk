@@ -31,8 +31,8 @@ func get_account_object(_wallet: String):
 	# for the response data.
 	return api_result
 
-func get_token_balance(_account_id: String, _api_key: String, _token_address: String):
-	var url = m_ApiEndpoint + "user/nft/balances?accountId=" + _account_id + "&tokenAddrs=" + _token_address + "&limit=100" # + "&nftDatas=" + _nftDatas
+func get_token_balance(_account_id: String, _api_key: String, _token_address: String, _get_metadata: bool):
+	var url = m_ApiEndpoint + "user/nft/balances?accountId=" + _account_id + "&tokenAddrs=" + _token_address + "&metadata=" + str(_get_metadata).to_lower() + "&limit=100" # + "&nftDatas=" + _nftDatas
 	var headers = ["Content-Type: application/json", "X-API-KEY: " + _api_key]
 	var use_ssl = true
 	
@@ -56,7 +56,8 @@ func resolve_ens(_wallet_address: String):
 	
 	return api_result
 
-# Used to fetch the metadata of a Loopring L2 NFT.
+# Used to fetch the metadata of a Loopring L2 NFT through IPFS.
+# An alternative to this method is using the "&metadata=true" parameter in get_token_balance()
 func get_metadata(_metadata_ipfs: String):
 	var url = LoopringGlobals.IPFSNODE + _metadata_ipfs
 	var headers = []

@@ -43,7 +43,6 @@ func get_account() -> void:
 	if json is GDScriptFunctionState:
 		json = yield(json, "completed")
 	account_object = json.result
-	print("Account object:\n", account_object)
 
 func get_api_key(_xapisig: String):
 	# Queries user's API Key
@@ -74,7 +73,7 @@ func get_tokens() -> void:
 	# NOTE: 0x1D006a27BD82E10F9194D30158d91201E9930420
 	# is the address for the original MetaBoy collection smart contract
 	var token_address = token_address_input.text
-	var json = Loopring.get_token_balance(str(account_object.get("accountId")), api_key, token_address)
+	var json = Loopring.get_token_balance(str(account_object.get("accountId")), api_key, token_address, true)
 	
 	if json is GDScriptFunctionState:
 		json = yield(json, "completed")
@@ -91,38 +90,39 @@ func get_tokens() -> void:
 		
 		var tokens : Array = response_object.get("data")
 		for token in tokens:
-			var nft_id = str(token.get("nftId"))
-			var ipfs_hash = Loopring.get_ipfs_hash_from_nft_id(nft_id)
+			var nft_card = NftInfoCard.instance()
+			nft_list_container.add_child(nft_card)
 			
 			# Fetch NFT metadata
-			var response = Loopring.get_metadata(ipfs_hash)
-			if response is GDScriptFunctionState:
-				response = yield(response, "completed")
+			var metadata = token.get("metadata")
 			
-			if response.error == OK:
-				var metadata_json = response.result
-				var nft_card = NftInfoCard.instance()
-				nft_list_container.add_child(nft_card)
-				nft_card.nft_name.text = metadata_json.get("name")
-				var description = metadata_json.get("description")
-				if description == null or description == "":
-					description = "No description."
-				nft_card.nft_description.text = description
-				var nft_attributes = metadata_json.get("attributes")
+			var nft_name = metadata.get("base").get("name")
+			var nft_description = metadata.get("base").get("description")
+			var nft_attributes_json = JSON.parse(metadata.get("extra").get("attributes"))
+			if nft_attributes_json.error == OK:
+				var nft_attributes = nft_attributes_json.result
 				if nft_attributes and !nft_attributes.empty():
 					for attribute in nft_attributes:
 						nft_card.add_attribute(attribute.get("trait_type") + ": " + attribute.get("value"))
 				else:
 					nft_card.attributes_label.text = "Attributes: No attributes."
+			else:
+				printerr("Failed to parse token attributes.")
+			
+			nft_card.nft_name.text = nft_name
+			var description = nft_description
+			if description == null or description == "":
+				description = "No description."
+			nft_card.nft_description.text = description
 				
-				# Attempt to get NFT image
-				# TODO: Godot does not support displaying gifs
-#				var image_link = metadata_json.get("image")
-#				var image_hash = image_link.substr(image_link.find_last("/") + 1)
-#				var nft_image_texture = load_texture_from_web(LoopringGlobals.IPFSNODE + image_hash)
-#				if nft_image_texture is GDScriptFunctionState:
-#					nft_image_texture = yield(nft_image_texture, "completed")
-#				nft_card.nft_image.texture = nft_image_texture
+			# Attempt to get NFT image
+			# TODO: Godot does not support displaying gifs
+#			var image_link = metadata.get("base").get("image")
+#			var image_hash = image_link.substr(image_link.find_last("/") + 1)
+#			var nft_image_texture = load_texture_from_web(LoopringGlobals.IPFSNODE + image_hash)
+#			if nft_image_texture is GDScriptFunctionState:
+#				nft_image_texture = yield(nft_image_texture, "completed")
+#			nft_card.nft_image.texture = nft_image_texture
 
 # Download an image from a url and create a Texture from it.
 func load_texture_from_web(url: String) -> Texture:
