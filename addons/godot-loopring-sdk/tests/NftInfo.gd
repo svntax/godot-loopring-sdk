@@ -11,4 +11,5 @@ onready var attributes_label = get_node("%AttributesLabel")
 func add_attribute(value: String) -> void:
 	var attribute_entry = Label.new()
 	attribute_entry.text = value
+	attribute_entry.autowrap = true
 	attributes_list.add_child(attribute_entry)
