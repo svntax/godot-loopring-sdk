@@ -27,10 +27,11 @@ func connect_to_wallet(wallet_name: String) -> void:
 	Wallet.request(query).then(connect_to_wallet_callback)
 
 func _on_wallet_connected(res):
-	var window = JavaScript.get_interface("window")
 	# Response is a string[] - An array of a single, hexadecimal Ethereum address string
 	var arr = res[0]
-	window.WCaccount = arr[0]
+	var wallet = arr[0]
+	LoopringGlobals.wallet = wallet
+	emit_signal("wallet_connected", wallet)
 
 var our_sign_message_callback = JavaScript.create_callback(self, "_on_message_signed")
 var our_sign_message_error_callback = JavaScript.create_callback(self, "_on_message_signed_error")
@@ -66,14 +67,6 @@ func _on_message_signed_error(res):
 	printerr("Failed to sign request.")
 	emit_signal("failed_to_sign")
 
-func get_account() -> String:
-	var window = JavaScript.get_interface("window")
-	if !window.WCaccount:
-		return ""
-	
-	var returnStr = window.WCaccount
-	return returnStr
-
 func get_signature() -> String:
 	var window = JavaScript.get_interface("window")
 	if !window.WCsignature:
@@ -86,21 +79,6 @@ func get_signature() -> String:
 
 func connect_to_web3_wallet(wallet_name: String) -> void:
 	connect_to_wallet(wallet_name)
-	var wallet = ""
-	
-	var timer = Timer.new()
-	timer.one_shot = true
-	add_child(timer)
-	
-	while wallet == "":
-		timer.start(1)
-		yield(timer, "timeout")
-		print("Waiting for wallet")
-		wallet = get_account()
-	
-	timer.queue_free()
-	LoopringGlobals.wallet = wallet
-	emit_signal("wallet_connected", wallet)
 
 func sign_web3_message(wallet_name: String, acc: String, message: String) -> String:
 	our_sign_message(wallet_name, acc, message)
