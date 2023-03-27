@@ -15,10 +15,10 @@ namespace Merkator.BitCoin
 
 		public static string Encode(byte[] data)
 		{
-            // Using this instead of Contract because of weird web errors.
+			// Using this instead of Contract because of weird web errors.
 			if(data == null || data.Length == 0){
-                return "";
-            }
+				return "";
+			}
 
 			// Decode byte[] to BigInteger
 			BigInteger intData = 0;
@@ -48,8 +48,8 @@ namespace Merkator.BitCoin
 		{
 			// Using this instead of Contract because of weird web errors.
 			if(s == null || s.Length == 0){
-                return null;
-            }
+				return null;
+			}
 
 			// Decode Base58 string to BigInteger 
 			BigInteger intData = 0;
