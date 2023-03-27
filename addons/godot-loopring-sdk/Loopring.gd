@@ -114,7 +114,17 @@ func logout() -> void:
 	var save_path = LoopringGlobals.USER_DATA_SAVE_PATH
 	var data_section = LoopringGlobals.DATA_SECTION
 	var user_config = ConfigFile.new()
-	user_config.save(save_path)
+	
+	var err = user_config.load(save_path)
+	if err == ERR_FILE_NOT_FOUND:
+		print("No user data found.")
+	elif err != OK:
+		print("Error when attempting to load user data.")
+	else:
+		if user_config.has_section(data_section):
+			user_config.erase_section(data_section)
+			user_config.save(save_path)
+			print(user_config)
 
 func query_api(url: String, headers: Array, use_ssl: bool, method: int, query: String = "") -> Dictionary:
 	var http = HTTPRequest.new()

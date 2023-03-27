@@ -7,7 +7,7 @@ var wallet : String = ""
 var ENS : String = ""
 
 const USER_DATA_SAVE_PATH = "user://user_data.cfg"
-const DATA_SECTION = "Web3" # Name of the section in the user data file that contains the user's info.
+const DATA_SECTION = "LoopringData" # Name of the section in the user data file that contains the user's info.
 
 # Required for API calls for NFT data
 const IPFSNODE : String = "https://ipfs.io/ipfs/" # Set to public gateway, set to private for better perfomance

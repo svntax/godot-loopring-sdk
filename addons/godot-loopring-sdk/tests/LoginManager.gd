@@ -26,8 +26,8 @@ func _ready():
 	elif err != OK:
 		print("Error when attempting to load user data.")
 	else:
-		var account = user_config.get_value(LoopringGlobals.DATA_SECTION, "Account", "")
-		var wallet_type = user_config.get_value(LoopringGlobals.DATA_SECTION, "WalletType", -1)
+		var account = user_config.get_value(LoopringGlobals.DATA_SECTION, "LoopringAccount", "")
+		var wallet_type = user_config.get_value(LoopringGlobals.DATA_SECTION, "LoopringWalletType", -1)
 		if account != null and account != "" and wallet_type != null and LoopringGlobals.is_valid_wallet_type(wallet_type):
 			# Wallet account detected, skip the login screen
 			LoopringGlobals.wallet = account
