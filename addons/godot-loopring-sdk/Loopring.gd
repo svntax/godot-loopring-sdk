@@ -124,7 +124,6 @@ func logout() -> void:
 		if user_config.has_section(data_section):
 			user_config.erase_section(data_section)
 			user_config.save(save_path)
-			print(user_config)
 
 func query_api(url: String, headers: Array, use_ssl: bool, method: int, query: String = "") -> Dictionary:
 	var http = HTTPRequest.new()
