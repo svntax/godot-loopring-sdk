@@ -7,7 +7,6 @@ To-Do's:
 - `resolve_ens` is untested
 - Mobile is untested
 - WalletConnect QR code login/signing
-- How to handle `get_token_balance` with more than 100 entries in the response.
 
 ## Features
 - User login/logout through a Loopring compatible wallet.
