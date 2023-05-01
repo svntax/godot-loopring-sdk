@@ -31,10 +31,12 @@ func get_account_object(_wallet: String):
 	# for the response data.
 	return api_result
 
-func get_token_balance(_account_id: String, _api_key: String, _token_address: String, _get_metadata: bool, _limit: int = -1):
+func get_token_balance(_account_id: String, _api_key: String, _token_address: String, _get_metadata: bool, _limit: int = -1, _offset: int = -1):
 	var url = m_ApiEndpoint + "user/nft/balances?accountId=" + _account_id + "&tokenAddrs=" + _token_address + "&metadata=" + str(_get_metadata).to_lower() # + "&nftDatas=" + _nftDatas
 	if _limit >= 1:
 		url += "&limit=" + str(_limit)
+	if _offset >= 1:
+		url += "&offset=" + str(_offset)
 	var headers = ["Content-Type: application/json", "X-API-KEY: " + _api_key]
 	var use_ssl = true
 	
