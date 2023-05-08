@@ -1,16 +1,10 @@
 extends Node
 
-export (NodePath) var button_metamask_path = NodePath()
-var button_metamask
+onready var button_metamask = $"%ButtonMetamask"
+onready var button_walletconnect = $"%ButtonWalletConnect"
+onready var button_gamestop = $"%ButtonGamestop"
 
-export (NodePath) var button_walletconnect_path = NodePath()
-var button_walletconnect
-
-export (NodePath) var button_gamestop_path = NodePath()
-var button_gamestop
-
-export (NodePath) var wallet_connector_path = NodePath()
-var wallet_connector
+onready var wallet_connector = $WalletConnector
 
 onready var loading_rect = $LoadingRect
 onready var loading_label = $LoadingLabel
@@ -35,17 +29,11 @@ func _ready():
 			get_tree().change_scene("res://addons/godot-loopring-sdk/tests/TestMainScene.tscn")
 	
 	# Connect the buttons to their respective callbacks
-	button_metamask = get_node(button_metamask_path)
 	button_metamask.connect("pressed", self, "Button_Metamask")
-
-	button_walletconnect = get_node(button_walletconnect_path)
 	button_walletconnect.connect("pressed", self, "Button_Metamask")
-
-	button_gamestop = get_node(button_gamestop_path)
 	button_gamestop.connect("pressed", self, "Button_GME")
 	
 	# Connect the WalletConnector signal to handle wallet sign in
-	wallet_connector = get_node(wallet_connector_path)
 	wallet_connector.connect("wallet_connected", self, "_on_wallet_connected")
 
 func Button_GME():
@@ -59,8 +47,7 @@ func Button_Metamask():
 	LoopringGlobals.set_wallet_type(LoopringGlobals.WalletType.METAMASK)
 
 func Button_WalletConnect():
-	# TODO Apparently this needs a separate process/UX flow? QR code login should
-	# be possible.
+	# TODO QR code login currently not supported.
 	show_loading_ui()
 	LoopringGlobals.set_wallet_type(LoopringGlobals.WalletType.WALLETCONNECT)
 

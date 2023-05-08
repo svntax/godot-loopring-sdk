@@ -23,10 +23,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
-button_metamask_path = NodePath("Buttons/ButtonMetamask")
-button_walletconnect_path = NodePath("Buttons/ButtonWalletConnect")
-button_gamestop_path = NodePath("Buttons/ButtonGamestop")
-wallet_connector_path = NodePath("WalletConnector")
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
@@ -52,6 +48,7 @@ margin_bottom = 152.0
 custom_constants/separation = 32
 
 [node name="ButtonMetamask" type="TextureButton" parent="Buttons"]
+unique_name_in_owner = true
 margin_right = 306.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 306, 64 )
@@ -59,6 +56,7 @@ texture_normal = ExtResource( 2 )
 expand = true
 
 [node name="ButtonGamestop" type="TextureButton" parent="Buttons"]
+unique_name_in_owner = true
 margin_top = 96.0
 margin_right = 306.0
 margin_bottom = 160.0
@@ -67,6 +65,7 @@ texture_normal = ExtResource( 1 )
 expand = true
 
 [node name="ButtonWalletConnect" type="TextureButton" parent="Buttons"]
+unique_name_in_owner = true
 margin_top = 192.0
 margin_right = 306.0
 margin_bottom = 256.0
