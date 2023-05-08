@@ -194,9 +194,8 @@ func sign_message_function() -> void:
 	get_api_key(x_api_sig)
 
 # Sign a message with WalletConnect
-# TODO: This originally uses WalletConnectUnity's "WalletConnect.cs" script component,
-# so there's likely a lot of Unity-specific code that needs to be translated or
-# replaced with whatever is a more generic equivalent from WalletConnectSharp.
+# TODO: This originally uses WalletConnectUnity's "WalletConnect.cs" script component.
+# Currently not implemented
 #func personal_sign_walletconnect(message: String, address_index: int = 0) -> String:
 #	var address = WalletConnect.ActiveSession.Accounts[addressIndex]
 #	var results = await WalletConnect.ActiveSession.EthPersonalSign(address, message)

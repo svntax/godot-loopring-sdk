@@ -16,7 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Loopring="*res://addons/godot-loopring-sdk/Loopring.tscn"
+Loopring="*res://addons/godot-loopring-sdk/Loopring.gd"
 LoopringGlobals="*res://addons/godot-loopring-sdk/LoopringGlobals.gd"
 
 [display]
@@ -25,6 +25,10 @@ window/size/width=1280
 window/size/height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-loopring-sdk/plugin.cfg" )
 
 [gui]
 
