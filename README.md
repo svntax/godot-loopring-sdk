@@ -24,9 +24,9 @@ These API calls are currently supported. See `TestMainScene.tscn` for an example
 | get_metadata | Gets metadata from IPFS |
 
 ## Getting Started
-Download the C# Mono version of Godot 3.5.1. Then either clone this repository and import the project, or just copy the `addons/godot-loopring-sdk` directory into your own project's `addons` directory.
+Download the C# Mono version of Godot 3.5.2. Then either clone this repository and import the project, or just copy the `addons/godot-loopring-sdk` directory into your own project's `addons` directory and enable the SDK from Godot's plugins menu.
 
-If you're copying the SDK over, also add `Loopring.tscn` and `LoopringGlobals.gd` as singletons through Godot's AutoLoad, and make sure that your `.csproj` file has the following elements in `<PropertyGroup>` and `<ItemGroup>`:
+If you're copying the SDK over, make sure that your `.csproj` file has the following elements in `<PropertyGroup>` and `<ItemGroup>`:
 ```xml
 <PropertyGroup>
   <TargetFramework>net472</TargetFramework>
@@ -63,6 +63,7 @@ Once you have an API key, you can query for the user's NFTs with `Loopring.get_t
 
 ## Notes
 - Once Godot 4.0 is out, the SDK will need to be updated due to changes to coroutines and the replacement of `yield` with `await`. In the meantime, any calls to methods that wait for responses require checking if the return value is a GDScriptFunctionState, and if so, yield until completed.
+- Godot 4.0's web exporting for C# is not working, so upgrading the SDK to 4.x will have to wait until those issues are fixed.
 
 ## Credits
 Loopmon - This SDK is based on Loopmon's Unity package (https://github.com/LoopMonsters/LoopringUnity)
