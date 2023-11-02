@@ -2,7 +2,6 @@ extends Node
 
 onready var button_metamask = $"%ButtonMetamask"
 onready var button_walletconnect = $"%ButtonWalletConnect"
-onready var button_gamestop = $"%ButtonGamestop"
 
 onready var wallet_connector = $WalletConnector
 
@@ -31,15 +30,9 @@ func _ready():
 	# Connect the buttons to their respective callbacks
 	button_metamask.connect("pressed", self, "Button_Metamask")
 	button_walletconnect.connect("pressed", self, "Button_Metamask")
-	button_gamestop.connect("pressed", self, "Button_GME")
 	
 	# Connect the WalletConnector signal to handle wallet sign in
 	wallet_connector.connect("wallet_connected", self, "_on_wallet_connected")
-
-func Button_GME():
-	show_loading_ui()
-	wallet_connector.connect_to_web3_wallet("gme")
-	LoopringGlobals.set_wallet_type(LoopringGlobals.WalletType.GME)
 
 func Button_Metamask():
 	show_loading_ui()

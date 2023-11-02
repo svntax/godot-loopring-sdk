@@ -1,6 +1,6 @@
 extends Node
 
-enum WalletType { NONE, METAMASK, WALLETCONNECT, GME }
+enum WalletType { NONE, METAMASK, WALLETCONNECT }
 var current_wallet_type = WalletType.NONE
 
 var wallet : String = ""
@@ -18,8 +18,6 @@ func set_wallet_type(wallet_type: int) -> void:
 func get_wallet_type_as_string() -> String:
 	if current_wallet_type == WalletType.NONE:
 		return ""
-	elif current_wallet_type == WalletType.GME:
-		return "gme"
 	else:
 		return "m"
 
@@ -29,4 +27,4 @@ func clear_wallet() -> void:
 	current_wallet_type = WalletType.NONE
 
 func is_valid_wallet_type(wallet_type: int) -> bool:
-	return wallet_type in [WalletType.METAMASK, WalletType.WALLETCONNECT, WalletType.GME]
+	return wallet_type in [WalletType.METAMASK, WalletType.WALLETCONNECT]

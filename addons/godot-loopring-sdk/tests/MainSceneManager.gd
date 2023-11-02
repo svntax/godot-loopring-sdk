@@ -175,8 +175,6 @@ func sign_message_function() -> void:
 	elif LoopringGlobals.current_wallet_type == LoopringGlobals.WalletType.WALLETCONNECT:
 		pass
 		#response = personal_sign_walletconnect() # TODO see comment for this function
-	elif LoopringGlobals.current_wallet_type == LoopringGlobals.WalletType.GME:
-		response = wallet_connector.sign_web3_message("gme", LoopringGlobals.wallet, keyseed_msg)
 	
 	if response is GDScriptFunctionState:
 		response = yield(response, "completed")

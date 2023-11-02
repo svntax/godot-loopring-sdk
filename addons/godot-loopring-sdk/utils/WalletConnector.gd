@@ -12,8 +12,6 @@ func connect_to_wallet(wallet_name: String) -> void:
 	var wallet = wallet_name.to_lower()
 	
 	match wallet:
-		"gme":
-			Wallet = window.gamestop
 		"m":
 			Wallet = window.ethereum
 		_:
@@ -41,8 +39,6 @@ func our_sign_message(wallet: String, account: String, msg: String) -> void:
 	wallet = wallet.to_lower()
 	
 	match wallet:
-		"gme":
-			Wallet = window.gamestop
 		"m":
 			Wallet = window.ethereum
 		_:
